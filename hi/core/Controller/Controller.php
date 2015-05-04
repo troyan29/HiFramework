@@ -3,8 +3,10 @@
 namespace Hi\Core\Controller;
 
 use Hi\Core\View\View as View;
+use Hi\Core\Http\HttpResonse as HttpResponse;
+use Hi\Core\Http\HttpRequest as HttpRequest;
 
-class Controller {
+class Controller extends HttpResponse, HttpRequest {
 
     protected $view;
 
@@ -12,7 +14,7 @@ class Controller {
 
     public function __controller()
     {
-
+        
     }
 
     public function render($view, array $data)

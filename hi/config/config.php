@@ -8,7 +8,12 @@ $db_config = [
 ];
 
 $app_config = [
-	'debug' => true,
+	
+    'debug' => true,
+    
+    'key' => 'ENCRYPTION KEY HERE !!',
+    
 	'default_controller' => 'HomeController:index',
-	'custom_404_controller' => 'NotFoundController:index'
+	
+    'custom_404_controller' => 'NotFoundController:index'
 ];

@@ -19,8 +19,7 @@ class App extends Container {
 
     public function setup()
     {
-        $this->bind();
-        
+
         Uri::setProjectFolder(basename(dirname(dirname(dirname(__FILE__)))));
         Uri::setBase(dirname(dirname(dirname(__FILE__))).'/');
         Uri::setSystem(Uri::base() . 'hi/');
