@@ -1,6 +1,6 @@
 <?php
 
-namespace Hi\app\controllers;
+namespace App\controllers;
 
 use Hi\Core\Controller\Controller;
 

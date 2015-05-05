@@ -1,6 +1,6 @@
 <?php
 
-namespace Hi\App\Models;
+namespace App\Models;
 
 use Hi\Core\Model\Model as Model;
 

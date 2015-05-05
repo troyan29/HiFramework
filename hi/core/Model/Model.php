@@ -2,7 +2,6 @@
 
 namespace Hi\Core\Model;
 
-class Model
-{
+class Model {
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hi\Core;
+namespace Hi\Core\Container;
 
 class Container {
 	
@@ -25,14 +25,15 @@ class Container {
      * @param  object $resolve Closure that creates instance
      * @return void
      */
-    public function bind($name, \Closure $resolve)
+    public function bind($name, $resolve)
     {
         $this->instances[$name] = $resolve;
     }
 
-    public function instance($name, $obj)
-    {
+    public function bindAndResolve($name, $obj) {
         $this->instances[$name] = $obj;
+
+        return $obj;
     }
  
     /**

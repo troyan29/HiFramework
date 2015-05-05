@@ -6,6 +6,9 @@ class HttpRequest {
 	
 	protected $request;
 	
+	protected $GET_METHOD = 'GET';
+	protected $POST_METHOD = 'POST';
+	
 	public function post($name) {
 		if(isset($_POST[$name])) return $_POST[$name];
 		return [];

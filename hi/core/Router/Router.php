@@ -4,20 +4,22 @@ namespace hi\Core\Router;
 
 use Hi\Core\Router\RouteEntity as Route;
 use Hi\Core\Lib\Uri;
+use Hi\Core\Http\HttpRequest as Request;
+use Hi\Core\Http\HttpResponse as Response;
 
 class Router {
 
-    protected static $allRoutes = [];
+    protected $allRoutes = [];
 
-    protected static $routeGroups = [];
+    protected $routeGroups = [];
 
-    protected static $namedRoutes = [];
+    protected $namedRoutes = [];
 
-    protected static $basePath = '';
+    protected $basePath = '';
 
-    protected static $controller_404 = 'NotFoundController';
+    protected $controller_404 = 'NotFoundController';
 
-    protected static $matchTypes = array(
+    protected $matchTypes = array(
         'd'  => '[0-9]++',
         's'  => '[0-9A-Za-z]++',
         'h'  => '[0-9A-Fa-f]++',
@@ -26,83 +28,83 @@ class Router {
         ''   => '[^/\.]++'
     );
 
-    public static function map()
+    public function map()
     {
         return new RouteEntity(func_get_args());
     }
 
-    public static function get ($pattern_uri, $options)
+    public function get ($pattern_uri, $options)
     {
         $options = is_string($options) ? ['method' => 'GET', 'controller' => $options] : array_push($options,['method' => 'GET']);
-        self::addNewRoute(new Route( $pattern_uri, $options ));
+        $this->addNewRoute(new Route( $pattern_uri, $options ));
     }
 
-    public static function post ($pattern_uri, $options)
+    public function post ($pattern_uri, $options)
     {
         $options = is_string($options) ? ['method' => 'POST', 'controller' => $options] : array_push($options,['method' => 'POST']);
-        self::addNewRoute(new Route( $pattern_uri, $options ));
+        $this->addNewRoute(new Route( $pattern_uri, $options ));
     }
 
-    public static function put()
+    public function put()
     {
         $options[] = ['method' => 'PUT'];
-        self::addNewRoute(new Route( $pattern_uri, $options ));
+        $this->addNewRoute(new Route( $pattern_uri, $options ));
     }
 
-    public static function delete()
+    public function delete()
     {
         $options[] = ['method' => 'DELETE'];
-        self::addNewRoute(new Route( $pattern_uri, $options ));
+        $this->addNewRoute(new Route( $pattern_uri, $options ));
     }
 
-    public static function addNewRoute(Route $route)
+    public function addNewRoute(Route $route)
     {
-        self::$allRoutes[] = $route;
+        $this->allRoutes[] = $route;
     }
 
-    public static function addRoutes(array $routes)
+    public function addRoutes(array $routes)
     {
-        array_merge( self::$allRoutes[], $routes);
+        array_merge( $this->allRoutes[], $routes);
     }
 
-    public static function setBasePath($base_path)
+    public function setBasePath($base_path)
     {
-        self::$basePath = $base_path;
+        $this->basePath = $base_path;
     }
 
-    public static function requestURI()
+    public function requestURI()
     {
         $uri = $_SERVER['REQUEST_URI'];
 
-        $pos = stripos( $uri, self::$basePath );
+        $pos = stripos( $uri, $this->basePath );
 
         if($pos != false)
-            return '/'.substr($uri, strlen(self::$basePath) + 2 );
+            return '/'.substr($uri, strlen($this->basePath) + 2 );
         else
             return '/'.substr( $uri, 1);
 
     }
 
-    public static function dispatch()
+    public function dispatch(Request $request, Response $response)
     {
 
-        $uri = self::requestURI();
+        $uri = $this->requestURI();
         
         $method = $_SERVER['REQUEST_METHOD'];
 
-        foreach(self::$allRoutes as $route)
+        foreach($this->allRoutes as $route)
         {
             if( $route->dispatch( $uri, $method ) )
             {
-                $controller_namespace = 'Hi\\app\\controllers\\'.$route->controller_name;
-                $controller_obj = new $controller_namespace;
+                $controller_namespace = 'App\\controllers\\'.$route->controller_name;
+                $controller_obj = new $controller_namespace($request, $response);
                 call_user_func_array([$controller_obj, $route->controller_action], array());
                 return true;
             }
         }
 
-        $controller_namespace = 'Hi\\app\\controllers\\'.self::$controller_404;
-        $controller_obj = new $controller_namespace;
+        $controller_namespace = 'App\\controllers\\'.$this->controller_404;
+        $controller_obj = new $controller_namespace($request, $response);
         call_user_func_array([$controller_obj, 'index'], array());
         return false;
 

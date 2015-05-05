@@ -27,7 +27,7 @@ $app = new Hi\Core\App();
  * Requiring routes file that contains all routes definitions
  */
 
-require_once 'hi/app/routes.php';
+require_once 'app/routes.php';
 
 
 /**

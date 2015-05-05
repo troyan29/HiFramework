@@ -3,18 +3,22 @@
 namespace Hi\Core\Controller;
 
 use Hi\Core\View\View as View;
-use Hi\Core\Http\HttpResonse as HttpResponse;
-use Hi\Core\Http\HttpRequest as HttpRequest;
+use Hi\Core\App as App;
+use Hi\Core\Http\HttpRequest as Request;
+use Hi\Core\Http\HttpResponse as Response;
 
-class Controller extends HttpResponse, HttpRequest {
+class Controller {
 
     protected $view;
 
     protected $model;
 
-    public function __controller()
+    protected $request;
+
+    public function __construct(Request $request, Response $response)
     {
-        
+     	 $this->request = $request;
+     	 $this->response = $response;
     }
 
     public function render($view, array $data)
