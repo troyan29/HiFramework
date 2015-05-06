@@ -35,13 +35,37 @@ class Router {
 
     public function get ($pattern_uri, $options)
     {
-        $options = is_string($options) ? ['method' => 'GET', 'controller' => $options] : array_push($options,['method' => 'GET']);
+        if(is_string($options))
+            $options = ['method' => 'GET', 'controller' => $options];
+        elseif($this->is_closure($options))
+            $options = ['method' => 'GET', 'controller' => $options];
+        elseif(is_array($options))
+            $options = array_push($options, ['method' => 'GET']);
+        else
+            $options = ['method' => 'GET', 'controller' => $options];
+
         $this->addNewRoute(new Route( $pattern_uri, $options ));
+    }
+
+    public function closure($pattern_uri, $closure){
+
+    }
+
+    public function is_closure($c) {
+        return is_object($c) && ($c instanceof \Closure);
     }
 
     public function post ($pattern_uri, $options)
     {
-        $options = is_string($options) ? ['method' => 'POST', 'controller' => $options] : array_push($options,['method' => 'POST']);
+        if(is_string($options))
+            $options = ['method' => 'POST', 'controller' => $options];
+        elseif($this->is_closure($options))
+            $options = ['method' => 'POST', 'controller' => $options];
+        elseif(is_array($options))
+            $options = array_push($options, ['method' => 'POST']);
+        else
+            $options = ['method' => 'POST', 'controller' => $options];
+
         $this->addNewRoute(new Route( $pattern_uri, $options ));
     }
 
@@ -90,16 +114,23 @@ class Router {
 
         $uri = $this->requestURI();
         
-        $method = $_SERVER['REQUEST_METHOD'];
+        $method = $request->requestedMethod();
 
         foreach($this->allRoutes as $route)
         {
             if( $route->dispatch( $uri, $method ) )
-            {
-                $controller_namespace = 'App\\controllers\\'.$route->controller_name;
-                $controller_obj = new $controller_namespace($request, $response);
-                call_user_func_array([$controller_obj, $route->controller_action], array());
-                return true;
+            {   
+                if($route->is_closure)
+                {
+                    call_user_func_array($route->closure, array());
+                    return true;
+
+                }else{
+                    $controller_namespace = 'App\\controllers\\'.$route->controller_name;
+                    $controller_obj = new $controller_namespace($request, $response);
+                    call_user_func_array([$controller_obj, $route->controller_action], array());
+                    return true;
+                }
             }
         }
 

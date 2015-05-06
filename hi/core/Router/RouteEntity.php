@@ -14,6 +14,10 @@ class RouteEntity {
 
     public $middleware = [];
 
+    public $is_closure = false;
+
+    public $closure = null;
+
     public $method;
 
     public $handler;
@@ -42,7 +46,10 @@ class RouteEntity {
 
         $this->parseMethod($options);
 
-        $this->parseController($options);
+        if($this->is_closure($options['controller']) === false)
+            $this->parseController($options);
+        else
+            $this->parseClosure($options);
 
         $this->parseName($options);
 
@@ -51,6 +58,11 @@ class RouteEntity {
     public function parseURI()
     {
 
+    }
+
+    public function parseClosure($options) {
+        $this->is_closure = true;
+        $this->closure = $options['controller'];
     }
 
     public function parseController($options)
@@ -90,6 +102,10 @@ class RouteEntity {
         if($this->method == $method && $this->pattern_uri == $uri) {
             return true;
         }
+    }
+
+    public function is_closure($c) {
+        return is_object($c) && ($c instanceof \Closure);
     }
 
 }

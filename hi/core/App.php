@@ -59,6 +59,10 @@ class App extends Container {
     {
         $this->router->post( $pattern_uri, $options );
     }
+
+    public function closure($pattern_uri, $closure){
+        $this->router->closure($pattern_uri, $closure);
+    }
 }
 
 ?>
