@@ -2,12 +2,13 @@
 
 $app->get('/', 'HomeController:index');
 
-$app->get('/home','HomeController:prodotti');
+$app->get('/home', 'HomeController:home');
 
-$app->get('/test', function($id = 9) {
-	echo "Ciao amici".$id;
-});
+$app->get('/contact', 'HomeController:index')
+	->name('contact_action')
+	->middleware('AuthMiddleware');
 
-$app->get('/login','AuthController:loginGet');
+$app->get('/closure', function($id = 0){
+	echo "Welcome to my closure function !";
+})->name('closure_action');
 
-$app->post('/login','AuthController:loginPost');

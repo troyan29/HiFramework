@@ -9,7 +9,6 @@ use Hi\Core\Factory\ComponentFactory as Factory;
 
 class App extends Container {
 
-    private $router;
 
     public function __construct(){
 
@@ -34,7 +33,7 @@ class App extends Container {
 
         $factory = $this->bindAndResolve('factory', new Factory());
 
-        $this->router = $this->bindAndResolve('router', $factory->getComponent('router'));
+        $this->bindAndResolve('router', $factory->getComponent('router'));
 
         $this->bind('request', $factory->getComponent('request'));
         
@@ -43,25 +42,20 @@ class App extends Container {
     }
 	
 	public function run(){
-        
-        $this->router->setBasePath( UriHelper::ProjectFolder() );
 
-		$this->router->dispatch($this->resolve('request'), $this->resolve('response'));
+        $router = $this->resolve('router');
 
+        $router->setBasePath(UriHelper::ProjectFolder());
+
+		$router->dispatch($this->resolve('request'), $this->resolve('response'));
 	}
 
-    public function get( $pattern_uri, $options )
-    {
-        $this->router->get( $pattern_uri, $options );
+    public function get ($uri, $options) {
+        return $this->resolve('router')->get($uri,$options);
     }
 
-    public function post( $pattern_uri, $options )
-    {
-        $this->router->post( $pattern_uri, $options );
-    }
-
-    public function closure($pattern_uri, $closure){
-        $this->router->closure($pattern_uri, $closure);
+    public function post ($uri, $options) {
+        return $this->resolve('router')->post($uri, $options);
     }
 }
 

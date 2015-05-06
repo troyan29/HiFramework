@@ -37,7 +37,7 @@ class RouteEntity {
 
     }
 
-    public function init( $options )
+    public function init($options)
     {
         if(is_array($options) && empty($options))
             throw new Exception("Route misconfiguration !");
@@ -55,8 +55,7 @@ class RouteEntity {
 
     }
 
-    public function parseURI()
-    {
+    public function parseURI() {
 
     }
 
@@ -85,11 +84,21 @@ class RouteEntity {
         $this->name = isset($options['name']) ? $options['name'] : null;
     }
 
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        return $this->name;
+    }
+
+    public function setMiddlewares(array $middlewares) {
+        $this->middleware = array_merge($this->middleware, $middlewares);
+    }
+
     public function setOptions(array $options)
     {
         $this->options = $options;
-
-        $this->init();
     }
 
     public function getOptions()
@@ -97,7 +106,7 @@ class RouteEntity {
         return $this->options;
     }
 
-    public function dispatch( $uri, $method )
+    public function dispatch($uri, $method)
     {        
         if($this->method == $method && $this->pattern_uri == $uri) {
             return true;
