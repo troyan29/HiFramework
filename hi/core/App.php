@@ -44,7 +44,7 @@ class App extends Container {
 
         $this->resolve('router')->setBasePath(UriHelper::ProjectFolder());
 
-		$this->resolve('router')->dispatch($this->resolve('request'), $this->resolve('response'));
+        $this->resolve('router')->dispatch($this->resolve('request'), $this->resolve('response'));
 	    
     }
 
