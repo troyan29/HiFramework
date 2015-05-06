@@ -32,6 +32,23 @@ Only this:
 ```sh
 $ git clone https://github.com/diegomariani/hiframework
 ```
+
+### Usage
+
+Very fast and simple:
+
+```php
+require 'bootstrap/autoloader.php';
+
+$app = new Hi\Core\App();
+
+$app->get('/welcome', function() {
+    echo 'Welcome to my website with HiFramework !';
+});
+
+$app->run();
+```
+
 License
 ----
 
