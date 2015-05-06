@@ -18,7 +18,7 @@ Pre-alpha - 0.0.1
 
 ### Requirements
 
-Dillinger uses a number of open source projects to work properly:
+HiFramework needs zero-configuration to run properly, only PHP version to 5.5.0:
 
 * [PHP] - PHP version > 5.5.0
 
