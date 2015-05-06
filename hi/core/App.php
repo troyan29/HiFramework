@@ -2,19 +2,14 @@
 
 namespace Hi\Core;
 
-use Hi\Core\Router\Router as Router;
-use Hi\Core\Lib\Uri as Uri;
+use Hi\Core\Lib\Helper\Uri as UriHelper;
+use Hi\Core\Lib\Helper\Config as Config;
 use Hi\Core\Container\Container as Container;
-use Hi\Core\Http\HttpRequest as Request;
-use Hi\Core\Http\HttpResponse as Response;
+use Hi\Core\Factory\ComponentFactory as Factory;
 
 class App extends Container {
 
     private $router;
-    
-    private $request;
-
-    private $response;
 
     public function __construct(){
 
@@ -28,33 +23,30 @@ class App extends Container {
     
     public function applicationSetup() {
 
-        Uri::setProjectFolder(basename(dirname(dirname(dirname(__FILE__)))));
-        Uri::setBase(dirname(dirname(dirname(__FILE__))).'/');
-        Uri::setSystem(Uri::base() . 'hi/');
-        Uri::setApp(Uri::base() . 'app/');
-        Uri::setCore(Uri::system() . 'core/');
-        Uri::setLib(Uri::system() . 'lib/');
-        Uri::setController(Uri::app() . 'controllers/');
-        Uri::setModel(Uri::app() . 'models/');
-        Uri::setView(Uri::app() . 'views/');
+        Config::init();
+
+        UriHelper::init();
     }
     
     public function initialBindings() {
         
         $this->bind('app', $this);
-        
-        $this->request = $this->bindAndResolve('request', new Request());
-        
-        $this->response = $this->bindAndResolve('response', new Response());
 
-        $this->router = $this->bindAndResolve('router', new Router());
+        $factory = $this->bindAndResolve('factory', new Factory());
+
+        $this->router = $this->bindAndResolve('router', $factory->getComponent('router'));
+
+        $this->bind('request', $factory->getComponent('request'));
+        
+        $this->bind('response', $factory->getComponent('response'));
+
     }
 	
 	public function run(){
         
-        $this->router->setBasePath(Uri::ProjectFolder());
+        $this->router->setBasePath( UriHelper::ProjectFolder() );
 
-		$this->router->dispatch($this->request, $this->response);
+		$this->router->dispatch($this->resolve('request'), $this->resolve('response'));
 
 	}
 
@@ -66,14 +58,6 @@ class App extends Container {
     public function post( $pattern_uri, $options )
     {
         $this->router->post( $pattern_uri, $options );
-    }
-
-    public function getRequest() {
-        return $this->request;
-    }
-
-    public function getResponse() {
-        return $this->response;
     }
 }
 

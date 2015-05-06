@@ -1,10 +1,15 @@
 <?php
 
 $db_config = [
+
     'db_host' => 'localhost',
+    
     'db_user' => 'root',
-    'db_password' => '',
+    
+    'db_password' => 'secret',
+
     'db_name' => 'hiframework'
+
 ];
 
 $app_config = [
@@ -16,4 +21,5 @@ $app_config = [
 	'default_controller' => 'HomeController:index',
 	
     'custom_404_controller' => 'NotFoundController:index'
+
 ];

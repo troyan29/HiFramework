@@ -1,7 +1,7 @@
 <?php
 
 namespace Hi\Core\View;
-use Hi\Core\Lib\Uri as UriHelper;
+use Hi\Core\Lib\Helper\Uri as UriHelper;
 
 class View
 {

@@ -3,7 +3,7 @@
 namespace hi\Core\Router;
 
 use Hi\Core\Router\RouteEntity as Route;
-use Hi\Core\Lib\Uri;
+use Hi\Core\Lib\Helper\Uri as Uri;
 use Hi\Core\Http\HttpRequest as Request;
 use Hi\Core\Http\HttpResponse as Response;
 

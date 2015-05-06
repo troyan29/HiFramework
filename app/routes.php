@@ -2,7 +2,7 @@
 
 $app->get('/', 'HomeController:index');
 
-$app->get('/home','HomeController:home');
+$app->get('/home','HomeController:prodotti');
 
 $app->get('/login','AuthController:loginGet');
 

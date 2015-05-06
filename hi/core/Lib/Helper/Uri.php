@@ -1,5 +1,8 @@
 <?php
-namespace Hi\Core\Lib;
+
+namespace Hi\Core\Lib\Helper;
+
+use Hi\Core\Lib\Helper\Config as Config;
 
 class Uri
 {
@@ -133,6 +136,21 @@ class Uri
             self::$project_folder
           );
 
+    }
+
+    public static function init() {
+        
+        self::setProjectFolder(Config::getBaseName());
+
+        self::setBase(Config::getBase().'/');
+        
+        self::setSystem(self::base() . 'hi/');
+        self::setApp(self::base() . 'app/');
+        self::setCore(self::system() . 'core/');
+        self::setLib(self::system() . 'lib/');
+        self::setController(self::app() . 'controllers/');
+        self::setModel(self::app() . 'models/');
+        self::setView(self::app() . 'views/');
     }
 
     public static function redirect($to)

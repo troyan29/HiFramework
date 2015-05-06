@@ -2,6 +2,8 @@
 
 namespace Hi\Core\Container;
 
+use Exception;
+
 class Container {
 	
 	/**
@@ -45,8 +47,7 @@ class Container {
     {
         if ( $this->registered($name) )
         {
-            $name = $this->instances[$name];
-            return $name();
+            return $this->instances[$name];
         }
  
         throw new Exception('Nothing registered with that name, fool.');
