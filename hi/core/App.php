@@ -9,8 +9,7 @@ use Hi\Core\Factory\ComponentFactory as Factory;
 
 class App extends Container {
 
-
-    public function __construct(){
+    public function __construct() {
 
         $this->applicationSetup();
         
@@ -31,9 +30,9 @@ class App extends Container {
         
         $this->bind('app', $this);
 
-        $factory = $this->bindAndResolve('factory', new Factory());
+        $factory = new Factory();
 
-        $this->bindAndResolve('router', $factory->getComponent('router'));
+        $this->bind('router', $factory->getComponent('router'));
 
         $this->bind('request', $factory->getComponent('request'));
         
@@ -41,23 +40,21 @@ class App extends Container {
 
     }
 	
-	public function run(){
+	public function run() {
 
-        $router = $this->resolve('router');
+        $this->resolve('router')->setBasePath(UriHelper::ProjectFolder());
 
-        $router->setBasePath(UriHelper::ProjectFolder());
-
-		$router->dispatch($this->resolve('request'), $this->resolve('response'));
+		$this->resolve('router')->dispatch($this->resolve('request'), $this->resolve('response'));
 	    
     }
 
-    public function get ($uri, $options) {
+    public function get($uri, $options) {
+
         return $this->resolve('router')->get($uri,$options);
     }
 
-    public function post ($uri, $options) {
+    public function post($uri, $options) {
+
         return $this->resolve('router')->post($uri, $options);
     }
 }
-
-?>
