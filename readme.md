@@ -3,11 +3,13 @@
 HiFramework is a lightweight PHP framework built to create stupid simple php applications.
 
   - Very Simple
-  - Incomplete framework :)
+  - MVC based
+  - Beautiful routing system
+  - Middlewares
 
 I have to add more info on this:
 
-> A stupid PHP framework
+> A stupidly easy and lightweight PHP framework
 
 This is a simple php framework still in development release, we have to design a better software structure using best practices and design patterns  
 
@@ -18,7 +20,7 @@ Pre-alpha - 0.0.1
 
 Dillinger uses a number of open source projects to work properly:
 
-* [PHP] - PHP >= 5.5.x
+* [PHP] - PHP version > 5.5.0
 
 ### Installation
 
