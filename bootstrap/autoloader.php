@@ -1,14 +1,15 @@
 <?php
 
 /**
-* Autoload by PSR-0 standards for class autoloading using namespaces
-*
-* Diego Mariani February 2, 2015
-*
-*/
+ * Autoload by PSR-0 standards for class autoloading using namespaces
+ *
+ * @author: Diego Mariani 
+ * @version: 0.0.1 2015-02-02
+ *
+ */
 
 function autoload($className) {
-    $root = dirname(dirname(dirname(__FILE__)));
+    $root = dirname(dirname(__FILE__));
     $className = ltrim($className, '\\');
     $fileName  = '';
     $namespace = '';

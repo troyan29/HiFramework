@@ -13,7 +13,7 @@
  * Requiring autoloader file that register default autoloader function
  */
 
-require_once 'hi/bootstrap/autoloader.php';
+require_once 'bootstrap/autoloader.php';
 
 
 /**

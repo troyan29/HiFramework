@@ -48,7 +48,8 @@ class App extends Container {
         $router->setBasePath(UriHelper::ProjectFolder());
 
 		$router->dispatch($this->resolve('request'), $this->resolve('response'));
-	}
+	    
+    }
 
     public function get ($uri, $options) {
         return $this->resolve('router')->get($uri,$options);
