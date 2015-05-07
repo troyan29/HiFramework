@@ -42,8 +42,8 @@ require 'bootstrap/autoloader.php';
 
 $app = new Hi\Core\App();
 
-$app->get('/welcome', function() {
-    echo 'Welcome to my website with HiFramework !';
+$app->get('/welcome/:name', function($name) {
+    echo 'Hello '.$name.', welcome to HiFramework !';
 });
 
 $app->run();
