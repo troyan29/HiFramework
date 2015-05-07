@@ -9,5 +9,5 @@ $app->get('/contact', 'HomeController:index')
 
 $app->get('/welcome/:name', function($name){
 	echo 'Hi '.$name.', welcome to HiFramework !';
-})->with(['name' => 'int']);
+})->with(['name' => 'string']);
 
