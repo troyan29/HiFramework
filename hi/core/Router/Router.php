@@ -145,10 +145,10 @@ class Router extends ArrayAdapter {
             if($route->dispatch($uri, $method))
             {   
                 //Run middlewares
-                foreach ($route->middleware as $k => $obj) {
-                    $middleware_namespace = 'App\\middlewares\\'.$obj;
+                foreach ($route->middleware_['name'] as $k => $v) {
+                    $middleware_namespace = 'App\\middlewares\\'.$v;
                     $middleware_obj = new $middleware_namespace($request, $response);
-                    call_user_func_array([$middleware_obj, 'index'], $route->params['value']);
+                    call_user_func_array([$middleware_obj, $route->middleware_['action'][$k]], $route->params['value']);
                 }
 
                 if($route->is_closure)

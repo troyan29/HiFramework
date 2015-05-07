@@ -11,20 +11,11 @@ class RouteEntity {
 
     public $params = ['key' => [], 'value' => []];
 
-    public $matching_options = ['key' => [], 'type' => []];
-
-    protected $matchTypes = array(
-        'int'  => '/^[1-9][0-9]*$/',
-        'string'  => '/^[A-Za-z0-9_-]*$/',
-        'hex'  => '/^0x[0-9A-F]{1,4}$/',
-        '*'  => '.+?',
-        '**' => '.++',
-        ''   => '[^/\.]++'
-    );
-
     public $options = [];
 
     public $middleware = [];
+
+    public $middleware_ = ['name' => [], 'action' => []];
 
     public $is_closure = false;
 
@@ -38,7 +29,7 @@ class RouteEntity {
 
     public $controller_action;
 
-    private $UrlParser;
+    private $parser;
 
 	public function __construct( $pattern_uri, $options )
     {
@@ -84,6 +75,18 @@ class RouteEntity {
         $this->controller_action = $controller_action;
     }
 
+    public function parseMiddleware() {
+        
+        foreach ($route->middleware as $k => $raw_middleware) {
+
+            $name = substr($raw_middleware, 0, strpos($raw_middleware,":"));
+            $action = substr($raw_middleware, strpos($raw_middleware,":")+1 );
+
+            $this->middleware_['name'][] = $name;
+            $this->middleware_['action'][] = $action;
+        }
+    }
+
     public function parseMethod($options)
     {
         $this->method = isset($options['method']) ? $options['method'] : 'GET';
@@ -104,8 +107,7 @@ class RouteEntity {
 
     public function setMatchingOption($options) {
         foreach ($options as $key => $type) {
-            array_push($this->matching_options['key'], $key);
-            array_push($this->matching_options['type'], $type);
+            $this->parser->addMatchingOption($key, $type);
         }
     }
 
@@ -135,46 +137,22 @@ class RouteEntity {
     {        
         if(strpos($this->pattern_uri, ':') !== false) {
             
-            //Bisogna mappare parametri
-            $request_ = explode('/', $request_uri);
-            $this_ = explode('/', $this->pattern_uri);
+            if($this->parser->parseURI($request_uri, $this->pattern_uri)) {
+                $this->params['key'] += $this->parser->getKeys();
+                $this->params['value'] += $this->parser->getValues();
+                
+                if($this->method === $method)
+                    return true;
 
-            if(count($request_) == count($this_)) {
-
-                foreach ($this_ as $key => $value) {
-                    if(strpos($value, ':') !== false){
-                        if(in_array(substr($value, strpos($value, ':')+1), $this->matching_options['key'])){
-
-                            //Esiste una regola di match
-                            $key_ = array_search(substr($value, strpos($value, ':')), $this->matching_options['key']);
-                            $matching = $this->matching_options['type'][$key_];
-                            if(preg_match($this->matchTypes[$matching], $request_[$key])) {
-                                $this->params['key'][] = substr($value, strpos($value, ':'));
-                                $this->params['value'][] = $request_[$key];
-                            } else {
-                                return false;
-                            }
-                        }else{
-                            $this->params['key'][] = substr($value, strpos($value, ':') + 1);
-                            $this->params['value'][] = $request_[$key];
-                        }
-                    }else{
-                        if($value !== $request_[$key]) return false;
-                    }
-                }
-
-                return true;
-
-            } else {
-                return false;
-            }
+            } 
 
         } else {
-            if($this->method == $method && $this->pattern_uri == $request_uri) {
+
+            if($this->method == $method && $this->pattern_uri == $request_uri)
                 return true;
-            }
         }
         
+        return false;
         
     }
 
