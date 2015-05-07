@@ -64,6 +64,12 @@ class Router extends ArrayAdapter {
         $this->currentRoute->setName($name);
         return $this;
     }
+
+    private function setMatchingOption($options) {
+        $this->currentRoute->setMatchingOption($options);
+        return $this;
+    }
+
     private function setMiddlewares($middlewares) {
         $this->currentRoute->setMiddlewares($middlewares);
         return $this;
@@ -91,6 +97,13 @@ class Router extends ArrayAdapter {
     public function name($name) {
 
         $this->currentRoute()->setName($name)->updateRoute();
+
+        return $this;
+    }
+
+    public function with() {
+
+        $this->currentRoute()->setMatchingOption(func_get_args()[0])->updateRoute();
 
         return $this;
     }
@@ -135,20 +148,20 @@ class Router extends ArrayAdapter {
                 foreach ($route->middleware as $k => $obj) {
                     $middleware_namespace = 'App\\middlewares\\'.$obj;
                     $middleware_obj = new $middleware_namespace($request, $response);
-                    call_user_func_array([$middleware_obj, 'index'], array());
+                    call_user_func_array([$middleware_obj, 'index'], $route->params['value']);
                 }
 
                 if($route->is_closure)
                 {
                     //Run closure
-                    call_user_func_array($route->closure, array());
+                    call_user_func_array($route->closure, $route->params['value']);
                     return true;
 
                 }else{
                     //Run controller code
                     $controller_namespace = 'App\\controllers\\'.$route->controller_name;
                     $controller_obj = new $controller_namespace($request, $response);
-                    call_user_func_array([$controller_obj, $route->controller_action], array());
+                    call_user_func_array([$controller_obj, $route->controller_action], $route->params['value']);
                     return true;
                 }
             }

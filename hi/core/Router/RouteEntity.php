@@ -3,12 +3,24 @@
 namespace Hi\Core\Router;
 
 use Exception;
-
-
+use Hi\Core\Lib\UriParser as UriParser;
 
 class RouteEntity {
 
 	public $pattern_uri;
+
+    public $params = ['key' => [], 'value' => []];
+
+    public $matching_options = ['key' => [], 'type' => []];
+
+    protected $matchTypes = array(
+        'int'  => '/^[1-9][0-9]*$/',
+        'string'  => '/^[A-Za-z0-9_-]*$/',
+        'hex'  => '/^0x[0-9A-F]{1,4}$/',
+        '*'  => '.+?',
+        '**' => '.++',
+        ''   => '[^/\.]++'
+    );
 
     public $options = [];
 
@@ -26,6 +38,8 @@ class RouteEntity {
 
     public $controller_action;
 
+    private $UrlParser;
+
 	public function __construct( $pattern_uri, $options )
     {
 
@@ -33,7 +47,7 @@ class RouteEntity {
 
         $this->init($options);
 
-        $this->parseURI();
+        $this->parser = new UriParser();
 
     }
 
@@ -52,10 +66,6 @@ class RouteEntity {
             $this->parseClosure($options);
 
         $this->parseName($options);
-
-    }
-
-    public function parseURI() {
 
     }
 
@@ -92,6 +102,13 @@ class RouteEntity {
         return $this->name;
     }
 
+    public function setMatchingOption($options) {
+        foreach ($options as $key => $type) {
+            array_push($this->matching_options['key'], $key);
+            array_push($this->matching_options['type'], $type);
+        }
+    }
+
     public function setMiddlewares(array $middlewares) {
         $this->middleware = array_merge($this->middleware, $middlewares);
     }
@@ -106,11 +123,59 @@ class RouteEntity {
         return $this->options;
     }
 
-    public function dispatch($uri, $method)
+    public function getMethod(){
+        return $this->method;
+    }
+
+    public function getURI(){
+        return $this->pattern_uri;
+    }
+
+    public function dispatch($request_uri, $method)
     {        
-        if($this->method == $method && $this->pattern_uri == $uri) {
-            return true;
+        if(strpos($this->pattern_uri, ':') !== false) {
+            
+            //Bisogna mappare parametri
+            $request_ = explode('/', $request_uri);
+            $this_ = explode('/', $this->pattern_uri);
+
+            if(count($request_) == count($this_)) {
+
+                foreach ($this_ as $key => $value) {
+                    if(strpos($value, ':') !== false){
+                        if(in_array(substr($value, strpos($value, ':')+1), $this->matching_options['key'])){
+
+                            //Esiste una regola di match
+                            $key_ = array_search(substr($value, strpos($value, ':')), $this->matching_options['key']);
+                            $matching = $this->matching_options['type'][$key_];
+                            if(preg_match($this->matchTypes[$matching], $request_[$key])) {
+                                $this->params['key'][] = substr($value, strpos($value, ':'));
+                                $this->params['value'][] = $request_[$key];
+                            } else {
+                                return false;
+                            }
+                        }else{
+                            $this->params['key'][] = substr($value, strpos($value, ':') + 1);
+                            $this->params['value'][] = $request_[$key];
+                        }
+                    }else{
+                        if($value !== $request_[$key]) return false;
+                    }
+                }
+
+                return true;
+
+            } else {
+                return false;
+            }
+
+        } else {
+            if($this->method == $method && $this->pattern_uri == $request_uri) {
+                return true;
+            }
         }
+        
+        
     }
 
     public function is_closure($c) {
