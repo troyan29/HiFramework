@@ -60,6 +60,10 @@ class RouteEntity {
 
     }
 
+    public function preDispatch() {
+        $this->parseMiddleware();
+    }
+
     public function parseClosure($options) {
         $this->is_closure = true;
         $this->closure = $options['controller'];
@@ -77,7 +81,7 @@ class RouteEntity {
 
     public function parseMiddleware() {
         
-        foreach ($route->middleware as $k => $raw_middleware) {
+        foreach ($this->middleware as $k => $raw_middleware) {
 
             $name = substr($raw_middleware, 0, strpos($raw_middleware,":"));
             $action = substr($raw_middleware, strpos($raw_middleware,":")+1 );
@@ -134,7 +138,9 @@ class RouteEntity {
     }
 
     public function dispatch($request_uri, $method)
-    {        
+    {     
+        $this->preDispatch();
+
         if(strpos($this->pattern_uri, ':') !== false) {
             
             if($this->parser->parseURI($request_uri, $this->pattern_uri)) {
