@@ -141,7 +141,7 @@ class RouteEntity {
     {     
         $this->preDispatch();
 
-        if(strpos($this->pattern_uri, ':') !== false) {
+        if(strpos($this->pattern_uri, '$') !== false) {
             
             if($this->parser->parseURI($request_uri, $this->pattern_uri)) {
                 $this->params['key'] += $this->parser->getKeys();

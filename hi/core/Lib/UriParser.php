@@ -40,20 +40,20 @@ class UriParser {
         if(count($request_) == count($this_)) {
 
             foreach ($this_ as $key => $value) {
-                if(strpos($value, ':') !== false){
-                    if(in_array(substr($value, strpos($value, ':')+1), $this->matching_options['key'])){
+                if(strpos($value, '$') !== false){
+                    if(in_array(substr($value, strpos($value, '$')+1), $this->matching_options['key'])){
 
                         //Esiste una regola di match
-                        $key_ = array_search(substr($value, strpos($value, ':')), $this->matching_options['key']);
+                        $key_ = array_search(substr($value, strpos($value, '$')), $this->matching_options['key']);
                         $matching = $this->matching_options['type'][$key_];
                         if(preg_match($this->matchTypes[$matching], $request_[$key])) {
-                            $this->params['key'][] = substr($value, strpos($value, ':'));
+                            $this->params['key'][] = substr($value, strpos($value, '$'));
                             $this->params['value'][] = $request_[$key];
                         } else {
                             return false;
                         }
                     }else{
-                        $this->params['key'][] = substr($value, strpos($value, ':') + 1);
+                        $this->params['key'][] = substr($value, strpos($value, '$') + 1);
                         $this->params['value'][] = $request_[$key];
                     }
                 }else{
