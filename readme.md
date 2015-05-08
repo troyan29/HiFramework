@@ -53,7 +53,7 @@ $app->run();
 
 ### Documentation
 
-View full documentation [HiFramework](http://hiframework.diegomariani.com/docs)
+View full documentation [Hi Framework Docs](http://hiframework.diegomariani.com/docs)
 
 
 ### Official website
