@@ -27,7 +27,7 @@ class HttpRequest {
 	}
 
 	public function requestURI($base) {
-		$uri = $_SERVER['REQUEST_URI'];
+		$uri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
 
         $pos = stripos($uri, $base);
 
