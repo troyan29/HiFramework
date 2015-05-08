@@ -66,7 +66,7 @@ This project is maintaned by [Diego Mariani](http://diegomariani.com) under MIT 
 
 ### Twitter
 
-Follow the author on Twitter to get updates on HiFramework and PHP, [@hidiegomariani](https://twitter.com/hidiegomariani).
+Follow the author on Twitter to get updates on HiFramework and PHP - [@hidiegomariani](https://twitter.com/hidiegomariani).
 
 ### Contribute 
 
