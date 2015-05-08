@@ -14,24 +14,26 @@ I have to add more info on this:
 This is a simple php framework still in development release, we have to design a better software structure using best practices and design patterns  
 
 ### Version
-Pre-alpha - 0.0.1
+Alpha - 0.0.1
 
 ### Requirements
 
-HiFramework needs zero-configuration to run properly, only PHP version to 5.5.0:
+HiFramework needs few configurations to run properly
 
-* [PHP] - PHP version > 5.5.0
+* [PHP] - PHP version up to 5.5.0
 
 ### Installation
 
 How to install ? It's too easy!
 
-Open your favorite Terminal and run this command.
+Open your favorite Terminal and run this command:
 
-Only this:
+
 ```sh
 $ git clone https://github.com/diegomariani/hiframework
 ```
+
+Or download [here](https://github.com/diegomariani/HiFramework/tarball/master)
 
 ### Usage
 
@@ -42,12 +44,34 @@ require 'bootstrap/autoloader.php';
 
 $app = new Hi\Core\App();
 
-$app->get('/welcome/:name', function($name) {
-    echo 'Hello '.$name.', welcome to HiFramework !';
+$app->get('/welcome/$name', function($name) {
+    echo "Hello $name, welcome to HiFramework !";
 });
 
 $app->run();
 ```
+
+### Documentation
+
+View full documentation [HiFramework](http://hiframework.diegomariani.com/docs)
+
+
+### Official website
+
+Visit official [Hi Framework website](http://hiframework.diegomariani.com/)
+
+### Author
+
+This project is maintaned by [Diego Mariani](http://diegomariani.com) under MIT licence
+
+### Twitter
+
+Follow the author on Twitter to get updates on HiFramework and PHP, [@hidiegomariani](https://twitter.com/hidiegomariani).
+
+### Contribute 
+
+Contribute to the project and getting grow togheter, fork and follow me.
+
 
 License
 ----
