@@ -17,8 +17,9 @@ class Config {
 		static::$base = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
 		static::$basename = basename(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
 		
-		static::$database_config = parse_ini_file( static::$base . '/config/database.ini');
-		static::$app_config = parse_ini_file( static::$base . '/config/app.ini');
+		static::$database_config = parse_ini_file( static::$base . '/config/.database');
+		static::$app_config = parse_ini_file( static::$base . '/config/.app');
+
 	}
 
 	public static function getDatabaseConfig(){
