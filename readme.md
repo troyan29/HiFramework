@@ -1,5 +1,21 @@
 # HiFramework
 
+### Easy coding
+
+Very fast and simple:
+
+```php
+require 'bootstrap/autoloader.php';
+
+$hi = new Hi\Core\App();
+
+$hi->get('/welcome/$name', function($name) {
+    echo "Hello $name, welcome to HiFramework !";
+});
+
+$hi->run();
+```
+
 HiFramework is a lightweight PHP framework built to create stupid simple php applications.
 
   - Very Simple
@@ -47,22 +63,6 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !^/assets$
 RewriteRule ^(.*)$ index.php [NC,L]
-```
-
-### Usage
-
-Very fast and simple:
-
-```php
-require 'bootstrap/autoloader.php';
-
-$hi = new Hi\Core\App();
-
-$hi->get('/welcome/$name', function($name) {
-    echo "Hello $name, welcome to HiFramework !";
-});
-
-$hi->run();
 ```
 
 ### Documentation
