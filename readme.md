@@ -24,6 +24,8 @@ HiFramework needs few configurations to run properly
 
 ### Installation
 
+#### Download
+
 How to install ? It's too easy!
 
 Open your favorite Terminal and run this command:
@@ -34,6 +36,18 @@ $ git clone https://github.com/diegomariani/hiframework
 ```
 
 Or download [here](https://github.com/diegomariani/HiFramework/tarball/master)
+
+#### Configuration
+
+You must be sure that the `.htaccess` file is well configured as
+```.htaccess
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/assets$
+RewriteRule ^(.*)$ index.php [NC,L]
+```
 
 ### Usage
 
