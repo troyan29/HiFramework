@@ -21,9 +21,14 @@ class Config
         static::$app_config = parse_ini_file(static::$base.'/config/.app');
     }
 
-    public static function getDatabaseConfig()
+    public static function getDatabase()
     {
         return static::$database_config;
+    }
+
+    public static function getApp()
+    {
+        return static::$app_config;
     }
 
     public static function getBase()

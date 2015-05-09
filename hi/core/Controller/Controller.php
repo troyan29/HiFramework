@@ -20,7 +20,7 @@ class Controller
         $this->response = $response;
     }
 
-    public function render($view, array $data)
+    public function view($view, array $data)
     {
         return new View($view, $data);
     }

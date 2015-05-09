@@ -54,4 +54,15 @@ class App extends Container
     {
         return $this->resolve('router')->post($uri, $options);
     }
+
+    public function getConfig($key)
+    {
+        //Decouple in Facade class
+        if($key == 'database')
+            return Config::getDatabase();
+        elseif($key == 'app')
+            return Config::getApp();
+        else
+            return [];
+    }
 }

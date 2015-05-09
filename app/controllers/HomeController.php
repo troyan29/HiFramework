@@ -13,6 +13,6 @@ class HomeController extends Controller
 
     public function home()
     {
-        $this->render('home', ['name' => 'diego', 'title' => 'Home page']);
+        $this->view('home', ['name' => 'diego', 'title' => 'Home page']);
     }
 }

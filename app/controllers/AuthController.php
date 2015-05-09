@@ -8,7 +8,7 @@ class AuthController extends Controller
 {
     public function loginGet()
     {
-        $this->render('login', ['title' => 'Inserisci le tue credenziali']);
+        $this->view('login', ['title' => 'Inserisci le tue credenziali']);
     }
 
     public function loginPost()
