@@ -1,6 +1,6 @@
 <?php
 
-namespace hi\Core\Router;
+namespace hi\core\Router;
 
 use Hi\Core\Router\RouteEntity as Route;
 use Hi\Core\Lib\Helper\Uri as Uri;
@@ -8,8 +8,8 @@ use Hi\Core\Http\HttpRequest as Request;
 use Hi\Core\Http\HttpResponse as Response;
 use Hi\Core\Router\ArrayAdapter as ArrayAdapter;
 
-class Router extends ArrayAdapter {
-
+class Router extends ArrayAdapter
+{
     protected $allRoutes = array();
 
     protected $routeGroups = [];
@@ -22,97 +22,114 @@ class Router extends ArrayAdapter {
 
     protected $controller_404 = 'NotFoundController';
 
-    private function push(Route $r) {
+    private function push(Route $r)
+    {
         array_push($this->allRoutes, $r);
     }
 
-    private function pop() {
+    private function pop()
+    {
         return array_pop($this->allRoutes);
     }
 
-    private function currentRoute() {
+    private function currentRoute()
+    {
         $this->currentRoute = array_pop($this->allRoutes);
+
         return $this;
     }
 
-    private function updateRoute() {
+    private function updateRoute()
+    {
         $this->push($this->currentRoute);
     }
 
-
-    public function map() {
+    public function map()
+    {
         return new RouteEntity(func_get_args());
     }
 
-    public function get($pattern_uri, $options) {
-
-        if(is_string($options))
+    public function get($pattern_uri, $options)
+    {
+        if (is_string($options)) {
             $options = ['method' => 'GET', 'controller' => $options];
-        elseif($this->is_closure($options))
+        } elseif ($this->is_closure($options)) {
             $options = ['method' => 'GET', 'controller' => $options];
-        elseif(is_array($options))
+        } elseif (is_array($options)) {
             $options = array_push($options, ['method' => 'GET']);
-        else
+        } else {
             $options = ['method' => 'GET', 'controller' => $options];
+        }
 
         $this->push(new Route($pattern_uri, $options));
 
         return $this;
     }
 
-    private function setName($name) {
+    private function setName($name)
+    {
         $this->currentRoute->setName($name);
+
         return $this;
     }
 
-    private function setMatchingOption($options) {
+    private function setMatchingOption($options)
+    {
         $this->currentRoute->setMatchingOption($options);
+
         return $this;
     }
 
-    private function setMiddlewares($middlewares) {
+    private function setMiddlewares($middlewares)
+    {
         $this->currentRoute->setMiddlewares($middlewares);
+
         return $this;
     }
 
-    public function is_closure($c) {
+    public function is_closure($c)
+    {
         return is_object($c) && ($c instanceof \Closure);
     }
 
-    public function post ($pattern_uri, $options)
+    public function post($pattern_uri, $options)
     {
-        if(is_string($options))
+        if (is_string($options)) {
             $options = ['method' => 'POST', 'controller' => $options];
-        elseif($this->is_closure($options))
+        } elseif ($this->is_closure($options)) {
             $options = ['method' => 'POST', 'controller' => $options];
-        elseif(is_array($options))
+        } elseif (is_array($options)) {
             $options = array_push($options, ['method' => 'POST']);
-        else
+        } else {
             $options = ['method' => 'POST', 'controller' => $options];
+        }
 
         $this->currentRoute = new Route($pattern_uri, $options);
+
         return $this;
     }
 
-    public function name($name) {
-
+    public function name($name)
+    {
         $this->currentRoute()->setName($name)->updateRoute();
 
         return $this;
     }
 
-    public function with() {
-
+    public function with()
+    {
         $this->currentRoute()->setMatchingOption(func_get_args()[0])->updateRoute();
 
         return $this;
     }
 
-    public function middleware() {
+    public function middleware()
+    {
         $middlewares = func_get_args();
-        
-        if(func_num_args() > 0)
+
+        if (func_num_args() > 0) {
             $this->currentRoute()->setMiddlewares($middlewares)->updateRoute();
+        }
 
         return $this;
     }
@@ -120,12 +137,12 @@ class Router extends ArrayAdapter {
     public function delete()
     {
         $options[] = ['method' => 'DELETE'];
-        $this->addNewRoute(new Route( $pattern_uri, $options ));
+        $this->addNewRoute(new Route($pattern_uri, $options));
     }
 
     public function addRoutes(array $routes)
     {
-        array_merge( $this->allRoutes[], $routes);
+        array_merge($this->allRoutes[], $routes);
     }
 
     public function setBasePath($base_path)
@@ -135,15 +152,12 @@ class Router extends ArrayAdapter {
 
     public function dispatch(Request $request, Response $response)
     {
-
         $uri = $request->requestURI($this->basePath);
-        
+
         $method = $request->requestMethod();
 
-        foreach($this->allRoutes as $route)
-        {
-            if($route->dispatch($uri, $method))
-            {   
+        foreach ($this->allRoutes as $route) {
+            if ($route->dispatch($uri, $method)) {
                 //Run middlewares
                 foreach ($route->middleware_['name'] as $k => $v) {
                     $middleware_namespace = 'App\\middlewares\\'.$v;
@@ -151,17 +165,17 @@ class Router extends ArrayAdapter {
                     call_user_func_array([$middleware_obj, $route->middleware_['action'][$k]], $route->params['value']);
                 }
 
-                if($route->is_closure)
-                {
+                if ($route->is_closure) {
                     //Run closure
                     call_user_func_array($route->closure, $route->params['value']);
-                    return true;
 
-                }else{
+                    return true;
+                } else {
                     //Run controller code
                     $controller_namespace = 'App\\controllers\\'.$route->controller_name;
                     $controller_obj = new $controller_namespace($request, $response);
                     call_user_func_array([$controller_obj, $route->controller_action], $route->params['value']);
+
                     return true;
                 }
             }
@@ -171,7 +185,7 @@ class Router extends ArrayAdapter {
         $controller_namespace = 'App\\controllers\\'.$this->controller_404;
         $controller_obj = new $controller_namespace($request, $response);
         call_user_func_array([$controller_obj, 'index'], array());
-        return false;
 
+        return false;
     }
 }

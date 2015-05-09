@@ -1,36 +1,38 @@
 <?php
 
-namespace Hi\Core\Lib\Helper;
+namespace Hi\core\Lib\Helper;
 
-class Config {
+class Config
+{
+    private static $base;
 
-	private static $base;
+    private static $basename;
 
-	private static $basename;
+    private static $database_config;
 
-	private static $database_config;
+    private static $app_config;
 
-	private static $app_config;
+    public static function init()
+    {
+        static::$base = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
+        static::$basename = basename(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
 
-	public static function init() {
-		
-		static::$base = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
-		static::$basename = basename(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
-		
-		static::$database_config = parse_ini_file( static::$base . '/config/.database');
-		static::$app_config = parse_ini_file( static::$base . '/config/.app');
+        static::$database_config = parse_ini_file(static::$base.'/config/.database');
+        static::$app_config = parse_ini_file(static::$base.'/config/.app');
+    }
 
-	}
+    public static function getDatabaseConfig()
+    {
+        return static::$database_config;
+    }
 
-	public static function getDatabaseConfig(){
-		return static::$database_config;
-	}
-	
-	public static function getBase() {
-		return static::$base;
-	}
+    public static function getBase()
+    {
+        return static::$base;
+    }
 
-	public static function getBaseName() {
-		return static::$basename;
-	}
+    public static function getBaseName()
+    {
+        return static::$basename;
+    }
 }

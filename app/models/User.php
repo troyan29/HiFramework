@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
 use Hi\Core\Model\Model as Model;
 
-class User extends Model {
-	
+class User extends Model
+{
 }

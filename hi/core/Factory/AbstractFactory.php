@@ -1,7 +1,8 @@
 <?php
 
-namespace Hi\Core\Factory;
+namespace Hi\core\Factory;
 
-abstract class AbstractFactory {
-	public abstract function getComponent($name);
+abstract class AbstractFactory
+{
+    abstract public function getComponent($name);
 }

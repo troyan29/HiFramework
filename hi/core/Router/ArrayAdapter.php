@@ -1,7 +1,7 @@
 <?php
 
-namespace Hi\Core\Router;
+namespace Hi\core\Router;
 
-class ArrayAdapter {
-	
+class ArrayAdapter
+{
 }

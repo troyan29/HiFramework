@@ -1,7 +1,7 @@
 <?php
 
-namespace Hi\Core\Model;
+namespace hi\core\Model;
 
-class Model {
-
+class Model
+{
 }

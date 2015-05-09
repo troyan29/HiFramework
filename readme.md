@@ -55,6 +55,9 @@ $hi->run();
 
 View full documentation [Hi Framework Docs](http://hiframework.diegomariani.com/docs)
 
+### Coding Standards
+
+This project is written respecting PSR-2 Coding Standards
 
 ### Official website
 
@@ -70,7 +73,7 @@ Follow the author on Twitter to get updates on HiFramework and PHP - [@hidiegoma
 
 ### Contribute 
 
-Contribute to the project and getting grow togheter, fork and follow me.
+Contribute to the project and getting grow togheter, fork and follow.
 
 
 License

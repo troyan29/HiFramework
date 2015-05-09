@@ -1,6 +1,6 @@
 <?php
 
-namespace Hi\Core\Lib\Helper;
+namespace Hi\core\Lib\Helper;
 
 use Hi\Core\Lib\Helper\Config as Config;
 
@@ -128,34 +128,31 @@ class Uri
 
     public static function base_url()
     {
-
-          return sprintf(
-            "%s://%s/%s/",
+        return sprintf(
+            '%s://%s/%s/',
             isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
             $_SERVER['SERVER_NAME'],
             self::$project_folder
           );
-
     }
 
-    public static function init() {
-        
+    public static function init()
+    {
         self::setProjectFolder(Config::getBaseName());
 
         self::setBase(Config::getBase().'/');
-        
-        self::setSystem(self::base() . 'hi/');
-        self::setApp(self::base() . 'app/');
-        self::setCore(self::system() . 'core/');
-        self::setLib(self::system() . 'lib/');
-        self::setController(self::app() . 'controllers/');
-        self::setModel(self::app() . 'models/');
-        self::setView(self::app() . 'views/');
+
+        self::setSystem(self::base().'hi/');
+        self::setApp(self::base().'app/');
+        self::setCore(self::system().'core/');
+        self::setLib(self::system().'lib/');
+        self::setController(self::app().'controllers/');
+        self::setModel(self::app().'models/');
+        self::setView(self::app().'views/');
     }
 
     public static function redirect($to)
     {
         header("Location: $to");
     }
-
 }

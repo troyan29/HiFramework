@@ -11,6 +11,8 @@
 	<input type="password" placeholder="Inserisci password" name="password" />
 	<input type="submit" name="submit" value="Login" />
 </form>
-<?php if(isset($_SESSION['login_error'])) echo $_SESSION['login_error']; ?>
+<?php if (isset($_SESSION['login_error'])) {
+    echo $_SESSION['login_error'];
+} ?>
 </body>
 </html>

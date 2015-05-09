@@ -1,7 +1,7 @@
 <?php
 
-namespace Hi\Core\Lib;
+namespace Hi\core\Lib;
 
-class Session {
-	
+class Session
+{
 }

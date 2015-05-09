@@ -1,7 +1,7 @@
 <?php
 
-namespace Hi\Core\Middleware;
+namespace hi\core\Middleware;
 
-class Middleware {
-	
+class Middleware
+{
 }
