@@ -1,13 +1,13 @@
 <?php
 
-$app->get('/', 'HomeController:index');
+$hi->get('/', 'HomeController:index');
 
-$app->get('/home', 'HomeController:home');
+$hi->get('/home', 'HomeController:home');
 
-$app->get('/contact', 'HomeController:index')
+$hi->get('/contact', 'HomeController:index')
 	->middleware('AuthMiddleware:index');
 
-$app->get('/welcome/$name', function($name){
+$hi->get('/welcome/$name', function($name){
 	echo "Hi $name, welcome to HiFramework !";
 })->with(['name' => 'string']);
 

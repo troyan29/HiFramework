@@ -7,8 +7,8 @@ use Hi\Core\Lib\Helper\Config as Config;
 use Hi\Core\Container\Container as Container;
 use Hi\Core\Factory\ComponentFactory as Factory;
 
-class App extends Container {
- 
+class App extends Container
+{
     public function __construct()
     {
         $this->applicationSetup();
@@ -25,8 +25,8 @@ class App extends Container {
         UriHelper::init();
     }
 
-    public function initialBindings() {
-        
+    public function initialBindings()
+    {
         $this->bind('app', $this);
 
         $factory = new Factory();
@@ -38,8 +38,8 @@ class App extends Container {
         $this->bind('response', $factory->getComponent('response'));
     }
 
-    public function run() {
-
+    public function run()
+    {
         $this->resolve('router')->setBasePath(UriHelper::ProjectFolder());
 
         $this->resolve('router')->dispatch($this->resolve('request'), $this->resolve('response'));

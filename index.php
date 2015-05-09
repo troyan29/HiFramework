@@ -20,7 +20,7 @@ require_once 'bootstrap/autoloader.php';
  * Instantiating App instance that will be used all over the application
  */
 
-$app = new Hi\Core\App();
+$hi = new Hi\Core\App();
 
 
 /**
@@ -34,7 +34,7 @@ require_once 'app/routes.php';
  * Running the app
  */
 
-$app->run();
+$hi->run();
 
 
 

@@ -42,13 +42,13 @@ Very fast and simple:
 ```php
 require 'bootstrap/autoloader.php';
 
-$app = new Hi\Core\App();
+$hi = new Hi\Core\App();
 
-$app->get('/welcome/$name', function($name) {
+$hi->get('/welcome/$name', function($name) {
     echo "Hello $name, welcome to HiFramework !";
 });
 
-$app->run();
+$hi->run();
 ```
 
 ### Documentation
