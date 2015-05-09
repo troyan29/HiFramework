@@ -20,7 +20,7 @@ Alpha - 0.0.1
 
 HiFramework needs few configurations to run properly
 
-* [PHP] - PHP version up to 5.5.0
+* [PHP] - version >= 5.5.0 while using **password_hash()** function inside `AuthMiddleware` 
 
 ### Installation
 
