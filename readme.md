@@ -75,7 +75,7 @@ Visit official [Hi Framework website](http://hiframework.diegomariani.com/)
 
 ### Coding Standards
 
-This project is written respecting PSR-2 Coding Standards
+This project is written respecting [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) Coding Standards
 
 ### Contribute 
 
@@ -83,11 +83,7 @@ Contribute to the project and getting grow togheter, fork and follow.
 
 ### Author
 
-This project is maintaned by [Diego Mariani](http://diegomariani.com) under MIT licence
-
-### Twitter
-
-Follow the author on Twitter to get updates on HiFramework and PHP - [@hidiegomariani](https://twitter.com/hidiegomariani).
+This project is maintaned by [Diego Mariani](http://diegomariani.com) PHP developer from Italy. Follow the author on Twitter to get latest updates on HiFramework - [@hidiegomariani](https://twitter.com/hidiegomariani).
 
 
 License
