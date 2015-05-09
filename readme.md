@@ -55,13 +55,17 @@ $hi->run();
 
 View full documentation [Hi Framework Docs](http://hiframework.diegomariani.com/docs)
 
+### Official website
+
+Visit official [Hi Framework website](http://hiframework.diegomariani.com/)
+
 ### Coding Standards
 
 This project is written respecting PSR-2 Coding Standards
 
-### Official website
+### Contribute 
 
-Visit official [Hi Framework website](http://hiframework.diegomariani.com/)
+Contribute to the project and getting grow togheter, fork and follow.
 
 ### Author
 
@@ -70,10 +74,6 @@ This project is maintaned by [Diego Mariani](http://diegomariani.com) under MIT 
 ### Twitter
 
 Follow the author on Twitter to get updates on HiFramework and PHP - [@hidiegomariani](https://twitter.com/hidiegomariani).
-
-### Contribute 
-
-Contribute to the project and getting grow togheter, fork and follow.
 
 
 License
