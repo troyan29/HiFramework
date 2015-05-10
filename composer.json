@@ -17,5 +17,6 @@
             "Hi\\": "hi",
             "App\\": "app"
         }
-    }
+    },
+    "minimum-stability": "stable"
 }
