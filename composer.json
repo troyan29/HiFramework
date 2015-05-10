@@ -14,8 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Hi": "hi",
-            "App": "app"
+            "Hi\\": "hi",
+            "App\\": "app"
         }
     }
 }
