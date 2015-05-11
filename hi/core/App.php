@@ -20,7 +20,6 @@ class App extends Container
 
     public function applicationSetup()
     {
-        
         Config::init();
 
         UriHelper::init();
