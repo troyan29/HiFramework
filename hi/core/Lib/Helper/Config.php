@@ -20,7 +20,7 @@ class Config
         static::$db_cfg = parse_ini_file(static::$base.'/config/.database');
         static::$app_config = parse_ini_file(static::$base.'/config/.app');
 
-        if(!static::setupDatabase()) throw new \Exception('Database connection error');
+        static::setupDatabase();
     }
 
     public static function setupDatabase()
