@@ -3,7 +3,7 @@
 /**
  * Hi - A Simple PHP Framework.
  *
- * @author   Diego Mariani <diegomariani.com@gmail.com>
+ * @author   Diego Mariani <info@diegomariani.com>
  *
  * @version  0.0.1
  *
