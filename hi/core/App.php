@@ -20,7 +20,11 @@ class App extends Container
 
     public function applicationSetup()
     {
-        Config::init();
+        try {
+            Config::init();
+        }catch(\Exception $e){
+            echo "Erro";
+        }
 
         UriHelper::init();
     }

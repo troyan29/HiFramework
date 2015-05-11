@@ -8,7 +8,7 @@ class Config
 
     private static $basename;
 
-    private static $database_config;
+    private static $db_cfg;
 
     private static $app_config;
 
@@ -17,8 +17,16 @@ class Config
         static::$base = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
         static::$basename = basename(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
 
-        static::$database_config = parse_ini_file(static::$base.'/config/.database');
+        static::$db_cfg = parse_ini_file(static::$base.'/config/.database');
         static::$app_config = parse_ini_file(static::$base.'/config/.app');
+
+        if(!static::setupDatabase()) throw new \Exception('Database connection error');
+    }
+
+    public static function setupDatabase()
+    {
+        return \R::setup( 'mysql:host='.static::$db_cfg['DB_HOST'].';dbname='.static::$db_cfg['DB_NAME'],
+        static::$db_cfg['DB_USER'], static::$db_cfg['DB_PASS'] );
     }
 
     public static function getDatabase()
