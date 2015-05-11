@@ -11,12 +11,12 @@
  */
 
 /**
- * Requiring autoloader file that register default autoloader function.
+ * Requiring autoloader file that register default autoloading function.
  */
 require_once 'bootstrap/autoloader.php';
 
 /*
- * Instantiating App instance that will be used all over the application
+ * Instantiating App class that will be used all over the application
  */
 
 $hi = new Hi\Core\App();
