@@ -104,7 +104,7 @@ class Router extends ArrayAdapter
             $options = ['method' => 'POST', 'controller' => $options];
         }
 
-        $this->currentRoute = new Route($pattern_uri, $options);
+        $this->push(new Route($pattern_uri, $options));
 
         return $this;
     }
