@@ -15,4 +15,9 @@ class HomeController extends Controller
     {
         $this->view('home', ['name' => 'diego', 'title' => 'Home page']);
     }
+
+    public function login()
+    {
+    	$this->view('login',[]);
+    }
 }
