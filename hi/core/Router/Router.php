@@ -73,6 +73,15 @@ class Router extends ArrayAdapter
         return $this;
     }
 
+    public function toJson()
+    {
+        $response = new Response();
+
+        $response->setContentType('json');
+        
+        return $this;
+    }
+
     private function setMatchingOption($options)
     {
         $this->currentRoute->setMatchingOption($options);
