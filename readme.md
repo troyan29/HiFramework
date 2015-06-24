@@ -36,7 +36,7 @@ Alpha - 0.0.2
 
 HiFramework needs few configurations to run properly
 
-* [PHP] - version >= 5.5.0 while using **password_hash()** function.
+* [PHP] - PHP 5 >= 5.3.0 while using **Closures** anonymous functions.
 
 ### Installation
 
