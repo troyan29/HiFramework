@@ -71,7 +71,7 @@ View full documentation [Hi Framework Docs](http://hiframework.diegomariani.com/
 
 ### Official website
 
-Visit official [Hi Framework website](http://hiframework.diegomariani.com/)
+Visit official [Hi Framework website](http://diegomariani.github.io/HiFramework)
 
 ### Coding Standards
 
