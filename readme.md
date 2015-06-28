@@ -9,7 +9,7 @@ require 'bootstrap/autoloader.php';
 
 $hi = new Hi\Core\App();
 
-$hi->get('/welcome/$name', function($name) {
+$hi->get('/welcome/:name', function($name) {
     echo "Hello $name, welcome to HiFramework !";
 });
 

@@ -7,7 +7,9 @@ class UriParser
 {
     private $params = ['key' => [], 'value' => []];
 
-    private $matching_options = ['key' => [], 'type' => []];
+    private $matchingOptions = ['key' => [], 'type' => []];
+
+    private $matchFlag = ':';
 
     private $matchTypes = array(
         'int' => '/^[1-9][0-9]*$/',
@@ -30,8 +32,8 @@ class UriParser
 
     public function addMatchingOption($key, $type)
     {
-        array_push($this->matching_options['key'], $key);
-        array_push($this->matching_options['type'], $type);
+        array_push($this->matchingOptions['key'], $key);
+        array_push($this->matchingOptions['type'], $type);
     }
 
     public function parseURI($request_uri, $this_uri)
@@ -44,20 +46,20 @@ class UriParser
 
         if (count($request_) == count($this_)) {
             foreach ($this_ as $key => $value) {
-                if (strpos($value, '$') !== false) {
-                    if (in_array(substr($value, strpos($value, '$') + 1), $this->matching_options['key'])) {
+                if (strpos($value, $this->matchFlag) !== false) {
+                    if (in_array(substr($value, strpos($value, $this->matchFlag) + 1), $this->matchingOptions['key'])) {
 
                         //Esiste una regola di match
-                        $key_ = array_search(substr($value, strpos($value, '$')), $this->matching_options['key']);
-                        $matching = $this->matching_options['type'][$key_];
+                        $key_ = array_search(substr($value, strpos($value, $this->matchFlag)), $this->matchingOptions['key']);
+                        $matching = $this->matchingOptions['type'][$key_];
                         if (preg_match($this->matchTypes[$matching], $request_[$key])) {
-                            $this->params['key'][] = substr($value, strpos($value, '$'));
+                            $this->params['key'][] = substr($value, strpos($value, $this->matchFlag));
                             $this->params['value'][] = $request_[$key];
                         } else {
                             return false;
                         }
                     } else {
-                        $this->params['key'][] = substr($value, strpos($value, '$') + 1);
+                        $this->params['key'][] = substr($value, strpos($value, $this->matchFlag) + 1);
                         $this->params['value'][] = $request_[$key];
                     }
                 } else {
@@ -68,16 +70,20 @@ class UriParser
             }
 
             return true;
-        } else {
+        }
 
             //Numero diverso di parametri url
 
             return false;
-        }
+        
     }
 
     private function frammentURI($string)
     {
         return explode('/', $string);
+    }
+
+    public function getMatchFlag(){
+        return $this->matchFlag;
     }
 }
