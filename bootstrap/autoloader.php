@@ -14,11 +14,9 @@ require_once dirname(__DIR__) . '/hi/core/lib/orm/rb.php';
  */
 function autoload($class) {
     
-    $root = dirname(dirname(__FILE__));
-    
     preg_match('/^(.*\\\\)(.*)/',  ltrim($class, '\\'), $match );
     
-    require_once $root.'/'. str_replace( '\\', '/', $match[1] ). $match[2] . '.php';
+    require_once dirname(__DIR__) .'/'. str_replace( '\\', '/', $match[1] ) . $match[2] . '.php';
 }
 
 spl_autoload_register('autoload');
