@@ -5,7 +5,7 @@
 Very fast and simple:
 
 ```php
-require 'bootstrap/autoloader.php';
+require 'vendor/autoload.php';
 
 $hi = new Hi\Core\App();
 
@@ -37,6 +37,7 @@ Alpha - 0.0.2
 HiFramework needs few configurations to run properly
 
 * PHP 5.3.0+ while using **Closures** anonymous functions.
+* [Composer](http://getcomposer.org) Dependency manager for PHP.
 
 ### Installation
 
@@ -49,6 +50,7 @@ Open your favorite Terminal and run this command:
 
 ```sh
 $ git clone https://github.com/diegomariani/hiframework
+$ composer install
 ```
 
 Or download [here](https://github.com/diegomariani/HiFramework/tarball/master)
