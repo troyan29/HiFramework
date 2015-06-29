@@ -25,7 +25,7 @@ HiFramework is a lightweight PHP framework built to create stupid simple php app
 
 **Hi Framework** Motto:
 
-> A stupidly easy and lightweight PHP framework
+> A stupidly easy and lightweight PHP micro framework
 
 This is a simple php framework still in development release, we're gonna design better software structure using PHP best practices and design patterns  
 
