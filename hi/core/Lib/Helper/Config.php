@@ -19,8 +19,9 @@ class Config
 
         static::$db_cfg = parse_ini_file(static::$base.'/config/.database');
         static::$app_config = parse_ini_file(static::$base.'/config/.app');
+        if(static::$app_config['DEBUG'] == true) ini_set('display_errors', 'on');
 
-        static::setupDatabase();
+        //static::setupDatabase();
     }
 
     public static function setupDatabase()

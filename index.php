@@ -1,19 +1,19 @@
 <?php
 
 /**
- * Hi - A Simple PHP Framework.
+ * Hi - A stupidly easy PHP Micro Framework.
  *
- * @author   Diego Mariani <info@diegomariani.com>
+ * @author   Diego Mariani <diego.mariani@mail.com>
  *
- * @version  0.0.1
+ * @version  0.0.2
  *
  * @since    January 2015
  */
 
 /**
- * Requiring autoloader file that register default autoloading function.
+ * Requiring autoloader file generated with composer
  */
-require_once 'bootstrap/autoloader.php';
+require_once 'vendor/autoload.php';
 
 /*
  * Instantiating App class that will be used all over the application

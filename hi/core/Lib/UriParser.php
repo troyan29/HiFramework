@@ -45,6 +45,7 @@ class UriParser
         $this_ = $this->frammentURI($this_uri);
 
         if (count($request_) == count($this_)) {
+            
             foreach ($this_ as $key => $value) {
                 if (strpos($value, $this->matchFlag) !== false) {
                     if (in_array(substr($value, strpos($value, $this->matchFlag) + 1), $this->matchingOptions['key'])) {
