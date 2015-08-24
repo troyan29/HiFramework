@@ -1,5 +1,5 @@
 # HiFramework
-
+## Please don't use in production! Unstable version for only didactic purposes. Under Refactoring
 ### Easy coding
 
 Very fast and simple:
