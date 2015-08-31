@@ -19,6 +19,7 @@
     "autoload": {
         "psr-4": {
             "Hi\\": "hi",
+            "Hi\\Core\\": "hi\\core",
             "App\\": "app"
         }
     },
